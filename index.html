@@ -13,7 +13,7 @@
         <div class="sectionLeft">
             <center>
                 <h1>Mining Emperor</h1>
-                <div class="moneyContainer">
+                <div class="moneyContainer unselectable">
                     <span id="money">0</span> money<br>
                     <span id="mps">0</span> money per second
                 </div>
@@ -25,8 +25,36 @@
         </div>
 
         <div class="sectionRight">
-            <button onclick="hireMiner()">Miner [<span id="minerCost">15</span>] -- <span id="miners">0</span></button>
-            <button onclick="buySaw()">Mining Saw [<span id="sawCost">100</span>] -- <span id="saws">0</span></button>
+            <table class="shopButton unselectable" onclick="hireMiner()">
+                <tr>
+                    <td id="image"><img src="images/pickaxe.png"></td>
+                    <td id="nameAndCost">
+                        <p>Miner</p>
+                        <p><span id="minerCost">15</span></p>
+                    </td>
+                    <td id="amount"><span id="miners">0</span></td>
+                </tr>
+            </table>
+            <table class="shopButton unselectable" onclick="buySaw()">
+                <tr>
+                    <td id="image"><img src="images/saw.jpg"></td>
+                    <td id="nameAndCost">
+                        <p>Mining Saw</p>
+                        <p><span id="sawCost">100</span></p>
+                    </td>
+                    <td id="amount"><span id="saws">0</span></td>
+                </tr>
+            </table>
+            <table class="shopButton unselectable" onclick="buyPump()">
+                <tr>
+                    <td id="image"><img src="images/pump.jpg"></td>
+                    <td id="nameAndCost">
+                        <p>Mining Pump</p>
+                        <p><span id="pumpCost">1000</span></p>
+                    </td>
+                    <td id="amount"><span id="pumps">0</span></td>
+                </tr>
+            </table>
         </div>
         
     </body>

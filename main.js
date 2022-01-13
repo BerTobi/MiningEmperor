@@ -5,6 +5,8 @@ var minerCost = 15;
 var miners = 0;
 var sawCost = 100;
 var saws = 0;
+var pumpCost = 1000;
+var pumps = 0;
 
 money = money + 1;
 
@@ -33,8 +35,18 @@ function buySaw(){
     }
 }
 
+function buyPump(){
+    if (money >= pumpCost){
+        money = money - pumpCost;
+        pumps = pumps + 1;
+        pumpCost = Math.floor(pumpCost * 1.15);
+
+        updateScreen()
+    }
+}
+
 function updateMoneyPerSecond(){
-    MpS = miners + saws * 5;
+    MpS = miners + saws * 5 + pumps * 50;
     updateScreen()
 }
 
@@ -45,6 +57,8 @@ function updateScreen(){
     document.getElementById("minerCost").innerHTML = minerCost;
     document.getElementById("saws").innerHTML = saws;
     document.getElementById("sawCost").innerHTML = sawCost;
+    document.getElementById("pumps").innerHTML = pumps;
+    document.getElementById("pumpCost").innerHTML = pumpCost;
     document.getElementById("mps").innerHTML = MpS;
     document.title = money + " money - Mining Emperor";
     
