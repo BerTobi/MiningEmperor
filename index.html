@@ -1,7 +1,33 @@
 <!DOCTYPE html>
 <html>
-<body>
-<h1>Mining Emperor</h1>
-<p>Game in development.</p>
-</body>
+    <head>
+        <title>Mining Emperor</title>
+        <script type="text/javascript" src="main.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+       
+
+
+        <div class="sectionLeft">
+            <center>
+                <h1>Mining Emperor</h1>
+                <div class="moneyContainer">
+                    <span id="money">0</span> money<br>
+                    <span id="mps">0</span> money per second
+                </div>
+                <br>
+                <div class="clickerContainer">
+                    <img src="images/pickaxe.png" height="128px" width="128px" onclick="addToMoney(1)">
+                </div>
+            </center>
+        </div>
+
+        <div class="sectionRight">
+            <button onclick="hireMiner()">Miner [<span id="minerCost">15</span>] -- <span id="miners">0</span></button>
+            <button onclick="buySaw()">Mining Saw [<span id="sawCost">100</span>] -- <span id="saws">0</span></button>
+        </div>
+        
+    </body>
 </html>

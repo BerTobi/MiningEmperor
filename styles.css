@@ -1,0 +1,24 @@
+.sectionLeft{
+    float: left;
+    width: 80%;
+}
+.sectionRight{
+    float: right;
+    width: 20%;
+}
+.moneyContainer{
+    background-color: rgb(238, 238, 238, 0.6);
+    width: 50%;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.clickerContainer img {
+    transform: rotate(300deg);
+    position: relative;
+}
+
+.clickerContainer img:hover { transform: scale(1.10); }
+.clickerContainer img:active { transform: rotate(330deg); }
