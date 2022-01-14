@@ -9,8 +9,6 @@ var saws = 0;
 var pumpCost = 1000;
 var pumps = 0;
 
-money = money + 1;
-
 function addToMoney(amount){
     money = money + amount;
     updateScreen()
@@ -82,12 +80,12 @@ function saveGame() {
 function loadGame() {
     var savedGame = JSON.parse(localStorage.getItem("gameSave"));
     if (typeof savedGame.money !== "undefined") money = savedGame.money;
-    if (typeof savedGame.minerCost !== "undefined") money = savedGame.minerCost; 
-    if (typeof savedGame.miners !== "undefined") money = savedGame.miners; 
-    if (typeof savedGame.sawCost !== "undefined") money = savedGame.sawCost; 
-    if (typeof savedGame.saws !== "undefined") money = savedGame.saws; 
-    if (typeof savedGame.pumpCost !== "undefined") money = savedGame.pumpCost; 
-    if (typeof savedGame.pumps !== "undefined") money = savedGame.pumps; 
+    if (typeof savedGame.minerCost !== "undefined") minerCost = savedGame.minerCost; 
+    if (typeof savedGame.miners !== "undefined") miners = savedGame.miners; 
+    if (typeof savedGame.sawCost !== "undefined") sawCost = savedGame.sawCost; 
+    if (typeof savedGame.saws !== "undefined") saws = savedGame.saws; 
+    if (typeof savedGame.pumpCost !== "undefined") pumpCost = savedGame.pumpCost; 
+    if (typeof savedGame.pumps !== "undefined") pumps = savedGame.pumps; 
 }
 
 window.onload = function() {
