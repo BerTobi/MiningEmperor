@@ -21,8 +21,8 @@ var game = {
 
     getMoneyPerTick: function() {
         var MpT = 0;
-        if (this.getMoneyPerSecond > 0){
-            MpT = this.getMoneyPerSecond / 50;
+        if (this.getMoneyPerSecond() > 0){
+            MpT = this.getMoneyPerSecond() / 50;
         } 
         return MpT;
     }
@@ -68,8 +68,8 @@ var building = {
 
 var display = {
     updateScreen: function() {
-        document.getElementById("money").innerHTML = game.money;
-        document.getElementById("mps").innerHTML = game.getMoneyPerSecond();
+        document.getElementById("money").innerHTML = game.money.toFixed(0);
+        document.getElementById("mps").innerHTML = game.getMoneyPerSecond().toFixed(0);
         document.title = game.money + " money - Mining Emperor";
 
         
