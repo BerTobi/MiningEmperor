@@ -62,6 +62,10 @@
     width: 15%;
 }
 
+.sectionFooter{
+    margin-top: 20%;
+}
+
 .unselectable {
     -webkit-user-select: none;
     -moz-user-select: none;

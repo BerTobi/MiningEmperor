@@ -1,106 +1,154 @@
-var money = 0;
-var MpT = 0;
-var MpS = 0;
+var game = {
+    money: 5,
+    totalMoney: 0,
+    totalClicks: 0,
+    clickValue: 1,
+    version: 0.01,
 
-var minerCost = 15;
-var miners = 0;
-var sawCost = 100;
-var saws = 0;
-var pumpCost = 1000;
-var pumps = 0;
+    addToMoney: function(amount) {
+        this.money += amount;
+        this.totalMoney += amount;
+        display.updateScreen();
+    },
 
-function addToMoney(amount){
-    money = money + amount;
-    updateScreen()
-}
+    getMoneyPerSecond: function() {
+        var MpS = 0;
+        for (i = 0; i < building.name.length; i++){
+            MpS += building.income[i] * building.count[i];
+        }
+        return MpS;
+    },
 
-function hireMiner(){
-    if (money >= minerCost){
-        money = money - minerCost;
-        miners = miners + 1;
-        minerCost = Math.floor(minerCost * 1.15);
-
-        updateScreen()
+    getMoneyPerTick: function() {
+        var MpT = 0;
+        if (this.getMoneyPerSecond > 0){
+            MpT = this.getMoneyPerSecond / 50;
+        } 
+        return MpT;
     }
-}
+};
 
-function buySaw(){
-    if (money >= sawCost){
-        money = money - sawCost;
-        saws = saws + 1;
-        sawCost = Math.floor(sawCost * 1.15);
+var building = {
+    name: [
+        "Miner",
+        "Saw",
+        "Pump",
+        "Magnet"
+    ],
+    image:[
+        "pickaxe.png",
+        "saw.jpg",
+        "pump.jpg",
+        "magnet.jpg"
+    ],
+    count: [0, 0, 0, 0],
+    income: [
+        1,
+        8,
+        70,
+        250
+    ],
+    cost: [
+        15,
+        100,
+        600,
+        4000
+    ],
 
-        updateScreen()
+    purchase: function(index) {
+        if (game.money >= this.cost[index]) {
+            game.money -= this.cost[index];
+            this.count[index]++
+            this.cost[index] = Math.floor(this.cost[index] * 1.10);
+            display.updateScreen();
+            display.updateShop();
+        }
     }
-}
+};
 
-function buyPump(){
-    if (money >= pumpCost){
-        money = money - pumpCost;
-        pumps = pumps + 1;
-        pumpCost = Math.floor(pumpCost * 1.15);
+var display = {
+    updateScreen: function() {
+        document.getElementById("money").innerHTML = game.money;
+        document.getElementById("mps").innerHTML = game.getMoneyPerSecond();
+        document.title = game.money + " money - Mining Emperor";
 
-        updateScreen()
+        
+    },
+
+    updateShop: function(){
+        document.getElementById("shopContainer").innerHTML = "";
+        for (i = 0; i < building.name.length; i++){
+            document.getElementById("shopContainer").innerHTML += '<table class="shopButton unselectable" onclick="building.purchase('+i+')"><tr><td id="image"><img src="images/'+building.image[i]+'"></td><td id="nameAndCost"><p>'+building.name[i]+'</p><p><span>'+building.cost[i]+'</span></p></td><td id="amount"><span>'+building.count[i]+'</span></td></tr></table>';
+        }
     }
-}
-
-function updateMoneyPerTick(){
-    MpT = miners * 0.02 + saws * 0.1 + pumps * 1;
-    MpS = MpT * 50;
-    updateScreen()
-}
-
-function updateScreen(){
-
-    document.getElementById("money").innerHTML = displayMoney;
-    document.getElementById("miners").innerHTML = miners;
-    document.getElementById("minerCost").innerHTML = minerCost;
-    document.getElementById("saws").innerHTML = saws;
-    document.getElementById("sawCost").innerHTML = sawCost;
-    document.getElementById("pumps").innerHTML = pumps;
-    document.getElementById("pumpCost").innerHTML = pumpCost;
-    document.getElementById("mps").innerHTML = displayMpS;
-    document.title = displayMoney + " money - Mining Emperor";
-    
-}
+};
 
 function saveGame() {
     var gameSave = {
-        money: money,
-        minerCost: minerCost,
-        miners: miners,
-        sawCost: sawCost,
-        saws: saws,
-        pumpCost: pumpCost,
-        pumps: pumps
+        money: game.money,
+        totalMoney: game.totalMoney,
+        totalClicks: game.totalClicks,
+        clickValue: game.clickValue,
+        version: game.version,
+        buildingCount: building.count,
+        buildingIncome: building.income,
+        buildingCost: building.cost
     };
     localStorage.setItem("gameSave", JSON.stringify(gameSave));
 }
 
 function loadGame() {
     var savedGame = JSON.parse(localStorage.getItem("gameSave"));
-    if (typeof savedGame.money !== "undefined") money = savedGame.money;
-    if (typeof savedGame.minerCost !== "undefined") minerCost = savedGame.minerCost; 
-    if (typeof savedGame.miners !== "undefined") miners = savedGame.miners; 
-    if (typeof savedGame.sawCost !== "undefined") sawCost = savedGame.sawCost; 
-    if (typeof savedGame.saws !== "undefined") saws = savedGame.saws; 
-    if (typeof savedGame.pumpCost !== "undefined") pumpCost = savedGame.pumpCost; 
-    if (typeof savedGame.pumps !== "undefined") pumps = savedGame.pumps; 
+    if (localStorage.getItem("gameSave") !== null) {
+        if (typeof savedGame.money !== "undefined") game.money = savedGame.money;
+        if (typeof savedGame.totalMoney !== "undefined") game.totalMoney = savedGame.totalMoney; 
+        if (typeof savedGame.totalClicks !== "undefined") game.totalClicks = savedGame.totalClicks; 
+        if (typeof savedGame.clickValue !== "undefined") game.clickValue = savedGame.clickValue; 
+        if (typeof savedGame.buildingCount !== "undefined") {
+            for (i = 0; i < savedGame.buildingCount.length; i++){
+                building.count[i] = savedGame.buildingCount[i];
+            }
+        }
+        if (typeof savedGame.buildingIncome !== "undefined") {
+            for (i = 0; i < savedGame.buildingIncome.length; i++){
+                building.income[i] = savedGame.buildingIncome[i];
+            }
+        } 
+        if (typeof savedGame.buildingCost !== "undefined") {
+            for (i = 0; i < savedGame.buildingCost.length; i++){
+                building.cost[i] = savedGame.buildingCost[i];
+            }
+        }  
+    }
+}
+
+function resetGame() {
+    if(confirm("Are you sure you want to reset your game")){
+        var gameSave = {};
+        localStorage.setItem("gameSave", JSON.stringify(gameSave));
+        location.reload();
+    }
 }
 
 window.onload = function() {
     loadGame();
-    updateScreen();
-}
+    display.updateScreen();
+    display.updateShop();
+};
 
 setInterval(function(){
-    money = money + MpT;
-    displayMoney = money.toFixed(0);
-    displayMpS = MpS.toFixed(0);
-    updateMoneyPerTick();
-    updateScreen()
+    game.money += game.getMoneyPerTick();
+    game.totalMoney += game.getMoneyPerTick();
+    display.updateScreen()
 }, 20);
 
 setInterval(function(){
     saveGame();
 }, 30000);
+
+document.addEventListener("keydown", function(event){
+    if (event.ctrlKey && event.which == 83) { // ctrl + s
+        event.preventDefault();
+        saveGame();
+    }
+}, false);

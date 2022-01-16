@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>Mining Emperor</title>
-        <script type="text/javascript" src="main.js"></script>
         <link rel="stylesheet" href="styles.css">
+        <script src="main.js"></script>
     </head>
     <body>
 
@@ -19,44 +19,20 @@
                 </div>
                 <br>
                 <div class="clickerContainer unselectable">
-                    <img src="images/pickaxe.png" height="128px" width="128px" onclick="addToMoney(1)">
+                    <img src="images/pickaxe.png" height="128px" width="128px" onclick="game.addToMoney(game.clickValue)">
                 </div>
-                <button onclick="saveGame();">Save Game</button>
             </center>
+
+            <div class="sectionFooter">
+                <button onclick="saveGame();">Save Game</button>
+                <button onclick="resetGame();">Reset Game</button>
+                <h5>Mining Emperor, © TobiB, 2020 - hosted by GitHub</h5>
+            </div>
         </div>
 
-        <div class="sectionRight">
-            <table class="shopButton unselectable" onclick="hireMiner()">
-                <tr>
-                    <td id="image"><img src="images/pickaxe.png"></td>
-                    <td id="nameAndCost">
-                        <p>Miner</p>
-                        <p><span id="minerCost">15</span></p>
-                    </td>
-                    <td id="amount"><span id="miners">0</span></td>
-                </tr>
-            </table>
-            <table class="shopButton unselectable" onclick="buySaw()">
-                <tr>
-                    <td id="image"><img src="images/saw.jpg"></td>
-                    <td id="nameAndCost">
-                        <p>Mining Saw</p>
-                        <p><span id="sawCost">100</span></p>
-                    </td>
-                    <td id="amount"><span id="saws">0</span></td>
-                </tr>
-            </table>
-            <table class="shopButton unselectable" onclick="buyPump()">
-                <tr>
-                    <td id="image"><img src="images/pump.jpg"></td>
-                    <td id="nameAndCost">
-                        <p>Mining Pump</p>
-                        <p><span id="pumpCost">1000</span></p>
-                    </td>
-                    <td id="amount"><span id="pumps">0</span></td>
-                </tr>
-            </table>
+        <div class="sectionRight" id="shopContainer">
         </div>
-        
+
     </body>
+
 </html>
