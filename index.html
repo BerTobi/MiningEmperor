@@ -3,7 +3,7 @@
     <head>
         <title>Mining Emperor</title>
         <link rel="stylesheet" href="styles.css">
-        <script src="main.js"></script>
+        
     </head>
     <body>
 
@@ -19,20 +19,23 @@
                 </div>
                 <br>
                 <div class="clickerContainer unselectable">
-                    <img src="images/pickaxe.png" height="128px" width="128px" onclick="game.addToMoney(game.clickValue)">
+                    <img src="images/pickaxe.png" id="clicker" height="128px" width="128px">
                 </div>
             </center>
 
             <div class="sectionFooter">
                 <button onclick="saveGame();">Save Game</button>
                 <button onclick="resetGame();">Reset Game</button>
+                <button onclick="window.location.href='changelog.html'">Changelog</button>
                 <h5>Mining Emperor, © TobiB, 2020 - hosted by GitHub</h5>
             </div>
         </div>
 
-        <div class="sectionRight" id="shopContainer">
+        <div class="sectionRight">
+            <div id="upgradeContainer"></div>
+            <div id="shopContainer"></div>
         </div>
-
+        <script src="main.js"></script>
     </body>
 
 </html>

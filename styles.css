@@ -72,3 +72,8 @@
     -ms-user-select: none;
     user-select: none;
 }
+
+#upgradeContainer img {
+    height: 64px;
+    width: 64px;
+}
